@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumière Dental Boutique — Aesthetic & Family Dental Studio Cikarang</title>
+    <meta name="description" content="Klinik gigi estetika dan keluarga dengan suasana nyaman seperti boutique lounge. Veneer, Invisalign, Bleaching, dan Perawatan Gigi Modern di Cikarang.">
+    <meta name="theme-color" content="#1E1B18">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Cormorant Garamond (Luxury Serif) & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                    },
+                    colors: {
+                        cream: '#FAF7F2',
+                        sand: '#F2ECE1',
+                        espresso: '#1E1B18',
+                        gold: {
+                            400: '#D4AF37',
+                            500: '#B89047',
+                            600: '#9A7432',
+                        }
+                    },
+                    animation: {
+                        'floaty': 'floaty 7s ease-in-out infinite',
+                        'shimmer': 'shimmer 3s linear infinite',
+                        'pulse-ring': 'pulseRing 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        floaty: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        },
+                        pulseRing: {
+                            '0%': { transform: 'scale(0.9)', opacity: '1' },
+                            '80%, 100%': { transform: 'scale(1.6)', opacity: '0' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root { --ease: cubic-bezier(.22,.7,.2,1); }
+
+        html { -webkit-tap-highlight-color: transparent; }
+        [id] { scroll-margin-top: 5.5rem; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #F2ECE1; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #B89047, #9A7432);
+            border-radius: 9999px;
+            border: 2px solid #F2ECE1;
+        }
+
+        /* ===== Scroll Reveal ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .85s var(--ease), transform .85s var(--ease);
+            will-change: opacity, transform;
+        }
+        .reveal.is-visible { opacity: 1; transform: none; }
+
+        /* ===== Hero entrance ===== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(26px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-anim { animation: fadeUp 1s var(--ease) both; }
+
+        /* ===== Ornamental divider ===== */
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.9rem;
+            color: #B89047;
+        }
+        .ornament::before,
+        .ornament::after {
+            content: '';
+            height: 1px;
+            flex: 1;
+            max-width: 90px;
+            background: linear-gradient(90deg, transparent, #B89047, transparent);
+        }
+
+        /* ===== Gold shine button ===== */
+        .btn-gold-shine { position: relative; overflow: hidden; }
+        .btn-gold-shine::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -120%;
+            width: 55%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+            transform: skewX(-20deg);
+            transition: left .8s var(--ease);
+            pointer-events: none;
+        }
+        .btn-gold-shine:hover::after { left: 145%; }
+
+        /* ===== Text underline reveal for links ===== */
+        .lux-link {
+            position: relative;
+        }
+        .lux-link::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -4px;
+            height: 1px;
+            width: 0;
+            background: #B89047;
+            transition: width .35s var(--ease);
+        }
+        .lux-link:hover::after { width: 100%; }
+
+        /* ===== Before After Slider ===== */
+        .ba-container {
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            touch-action: pan-y;
+        }
+        .ba-before {
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 50%;
+            overflow: hidden;
+            will-change: width;
+        }
+        .ba-before img {
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            max-width: none;
+        }
+        .ba-handle {
+            position: absolute;
+            top: 0; bottom: 0;
+            left: 50%;
+            width: 3px;
+            background: #ffffff;
+            box-shadow: 0 0 14px rgba(0,0,0,0.4);
+            cursor: ew-resize;
+            transform: translateX(-50%);
+            z-index: 5;
+            will-change: left;
+        }
+        .ba-circle {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 46px; height: 46px;
+            border-radius: 9999px;
+            background: #1E1B18;
+            color: #D4AF37;
+            border: 2px solid #D4AF37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+            transition: transform .3s var(--ease), background .3s;
+        }
+        .ba-handle:hover .ba-circle,
+        .ba-handle.active .ba-circle {
+            transform: translate(-50%, -50%) scale(1.12);
+            background: #B89047;
+            color: #1E1B18;
+        }
+        /* Pulse hint on handle */
+        .ba-circle::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 9999px;
+            border: 1px solid rgba(212,175,55,.5);
+            animation: pulseRing 2.4s cubic-bezier(0.4,0,0.6,1) infinite;
+        }
+
+        /* ===== FAQ accordion ===== */
+        .faq-panel {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows .45s var(--ease);
+        }
+        .faq-item.open .faq-panel { grid-template-rows: 1fr; }
+        .faq-panel > .faq-inner { overflow: hidden; }
+        .faq-chevron { transition: transform .4s var(--ease); }
+        .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+        /* ===== Mobile menu ===== */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .45s var(--ease);
+        }
+        #mobile-menu.open { max-height: 28rem; }
+
+        /* ===== Number pop ===== */
+        @keyframes pop {
+            0% { transform: scale(1); }
+            45% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+        .pop { animation: pop .45s var(--ease); }
+
+        /* ===== Shake (form error) ===== */
+        @keyframes shake {
+            10%, 90% { transform: translateX(-1px); }
+            20%, 80% { transform: translateX(2px); }
+            30%, 50%, 70% { transform: translateX(-4px); }
+            40%, 60% { transform: translateX(4px); }
+        }
+        .shake { animation: shake .5s; }
+
+        /* ===== Toast ===== */
+        #toast-msg { transition: transform .4s var(--ease), opacity .4s var(--ease); }
+
+        /* ===== Gallery hover ===== */
+        .gallery-item img {
+            transition: transform .8s var(--ease), filter .5s var(--ease);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.07);
+            filter: brightness(1.08) saturate(1.05);
+        }
+        .gallery-item .gallery-overlay {
+            transition: opacity .4s var(--ease);
+            opacity: 0;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        /* ===== Testimonial ===== */
+        .testimonial-card { transition: transform .4s var(--ease), box-shadow .4s var(--ease); }
+        .testimonial-card:hover { transform: translateY(-6px); }
+
+        /* ===== Progress bar ===== */
+        #scroll-progress {
+            background: linear-gradient(90deg, #D4AF37, #B89047, #9A7432);
+            box-shadow: 0 0 12px rgba(212,175,55,.5);
+        }
+
+        /* ===== Reduced motion ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .001ms !important;
+            }
+            .reveal { opacity: 1; transform: none; }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body class="bg-cream text-espresso antialiased selection:bg-gold-500/20 selection:text-espresso">
+
+    <!-- Scroll Progress -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] w-0 z-[60]"></div>
+
+    <!-- Banner Demo -->
+    <div class="relative bg-espresso text-cream text-xs py-2 px-4 text-center flex flex-wrap items-center justify-center gap-2 border-b border-stone-800 overflow-hidden">
+        <span class="relative z-10 bg-gold-500/20 text-gold-400 border border-gold-500/40 px-2.5 py-0.5 rounded-full font-semibold tracking-wide">TEMA 2: AESTHETIC BOUTIQUE</span>
+        <span class="relative z-10">Referensi Klinik Gigi Estetika &amp; Keluarga oleh <strong class="text-gold-400">Terlahir Manusia Web Development</strong></span>
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-gold-500/10 to-transparent animate-shimmer" style="background-size:200% 100%"></div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header id="site-header" class="sticky top-0 z-40 bg-cream/90 backdrop-blur-md border-b border-stone-200/80 transition-shadow duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-18 py-3.5 flex items-center justify-between gap-4">
+            <!-- Brand -->
+            <a href="#" class="flex items-center gap-3 group shrink-0">
+                <div class="w-10 h-10 rounded-full bg-espresso text-gold-400 border border-gold-500/40 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:rotate-[-8deg] transition-transform duration-300">
+                    <i class="fa-solid fa-sparkles text-sm"></i>
+                </div>
+                <div>
+                    <span class="font-serif font-bold text-2xl tracking-tight text-espresso block leading-none">Lumière<span class="text-gold-600 italic">Dental</span></span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-stone-500 block mt-0.5">Aesthetic &amp; Family Studio</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
+                <a href="#treatment" class="lux-link hover:text-gold-600 transition-colors">Signature Treatment</a>
+                <a href="#transformasi" class="lux-link hover:text-gold-600 transition-colors">Before &amp; After</a>
+                <a href="#galeri" class="lux-link hover:text-gold-600 transition-colors">Galeri Klinik</a>
+                <a href="#estimasi" class="lux-link hover:text-gold-600 transition-colors">Estimasi &amp; Promo</a>
+                <a href="#lokasi" class="lux-link hover:text-gold-600 transition-colors">Klinik Kami</a>
+            </nav>
+
+            <!-- CTA -->
+            <div class="flex items-center gap-2.5">
+                <a href="#reservasi" class="btn-gold-shine hidden sm:inline-flex items-center gap-2 bg-espresso hover:bg-stone-800 text-cream text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-full shadow-sm transition-all duration-300 hover:-translate-y-0.5">
+                    <span>Book Appointment</span>
+                    <i class="fa-solid fa-arrow-right text-gold-400 text-xs"></i>
+                </a>
+                <button id="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu"
+                        class="md:hidden w-10 h-10 rounded-full border border-stone-300 flex items-center justify-center text-espresso hover:bg-sand active:scale-95 transition">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden bg-cream border-t border-stone-200">
+            <nav class="px-5 py-3 flex flex-col gap-1 text-sm font-medium text-stone-700">
+                <a href="#treatment" class="py-2.5 hover:text-gold-600 transition">Signature Treatment</a>
+                <a href="#transformasi" class="py-2.5 hover:text-gold-600 transition">Before &amp; After</a>
+                <a href="#galeri" class="py-2.5 hover:text-gold-600 transition">Galeri Klinik</a>
+                <a href="#estimasi" class="py-2.5 hover:text-gold-600 transition">Estimasi &amp; Promo</a>
+                <a href="#lokasi" class="py-2.5 hover:text-gold-600 transition">Klinik Kami</a>
+                <a href="#reservasi" class="mt-2 mb-2 py-3 rounded-full bg-espresso text-cream text-center font-semibold">Book Appointment</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="relative overflow-hidden pt-10 pb-16 sm:pt-16 sm:pb-24">
+        <!-- Dekorasi -->
+        <div class="pointer-events-none absolute -top-32 -right-24 w-[26rem] h-[26rem] bg-gold-400/10 rounded-full blur-3xl animate-floaty"></div>
+        <div class="pointer-events-none absolute -bottom-40 -left-28 w-[24rem] h-[24rem] bg-sand/60 rounded-full blur-3xl animate-floaty" style="animation-delay:-3.5s"></div>
+
+        <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+                <!-- Left Editorial Copy -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="hero-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sand border border-stone-300/70 text-xs font-semibold text-stone-700" style="animation-delay:.05s">
+                        <i class="fa-solid fa-award text-gold-600"></i>
+                        <span>Klinik Gigi Estetika &amp; Keluarga No. 1 di Cikarang</span>
+                    </div>
+
+                    <h1 class="hero-anim font-serif font-bold text-4xl sm:text-6xl text-espresso leading-[1.08]" style="animation-delay:.15s">
+                        Senyum Indah yang Dirancang <span class="italic font-semibold text-gold-600">Khusus Untuk Anda.</span>
+                    </h1>
+
+                    <p class="hero-anim text-stone-600 text-base sm:text-lg leading-relaxed" style="animation-delay:.25s">
+                        Nikmati pengalaman perawatan gigi bebas rasa cemas dalam suasana nyaman layaknya <em>private lounge</em>. Didukung dokter spesialis berpengalaman, teknologi digital scan 3D, dan rincian biaya yang transparan.
+                    </p>
+
+                    <div class="hero-anim flex flex-col sm:flex-row gap-3.5 pt-2" style="animation-delay:.35s">
+                        <a href="#reservasi" class="btn-gold-shine bg-espresso hover:bg-stone-800 text-cream font-semibold px-7 py-4 rounded-full shadow-lg shadow-stone-900/15 transition-all duration-300 hover:-translate-y-0.5 text-center flex items-center justify-center gap-2.5">
+                            <i class="fa-brands fa-whatsapp text-gold-400 text-lg"></i>
+                            <span>Reservasi Jadwal VIP</span>
+                        </a>
+                        <a href="#transformasi" class="bg-sand hover:bg-stone-200/70 text-espresso border border-stone-300 font-semibold px-7 py-4 rounded-full transition-all duration-300 hover:-translate-y-0.5 text-center flex items-center justify-center gap-2">
+                            <span>Lihat Hasil Pasien</span>
+                            <i class="fa-solid fa-arrow-down text-xs text-gold-600"></i>
+                        </a>
+                    </div>
+
+                    <!-- Mini Highlights -->
+                    <div class="hero-anim pt-6 grid grid-cols-3 gap-4 border-t border-stone-200" style="animation-delay:.45s">
+                        <div>
+                            <span class="font-serif font-bold text-2xl sm:text-3xl text-espresso block">
+                                <span data-counter="15">0</span>+
+                            </span>
+                            <span class="text-xs text-stone-500">Dokter Spesialis &amp; Umum</span>
+                        </div>
+                        <div>
+                            <span class="font-serif font-bold text-2xl sm:text-3xl text-espresso block">
+                                <span data-counter="0">0</span>%
+                            </span>
+                            <span class="text-xs text-stone-500">Cicilan Behel &amp; Veneer</span>
+                        </div>
+                        <div>
+                            <span class="font-serif font-bold text-2xl sm:text-3xl text-espresso block">
+                                <span data-counter="4.9" data-decimals="1">0</span>★
+                            </span>
+                            <span class="text-xs text-stone-500">1.200+ Ulasan Pasien</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Aesthetic Image Frame -->
+                <div class="hero-anim lg:col-span-6" style="animation-delay:.3s">
+                    <div class="group relative">
+                        <!-- Gold border glow -->
+                        <div class="pointer-events-none absolute -inset-3 rounded-[2.4rem] bg-gradient-to-tr from-gold-400/30 via-transparent to-gold-600/20 blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                        <div class="relative rounded-[2rem] overflow-hidden border-4 border-white shadow-2xl shadow-stone-900/10 bg-sand">
+                            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=900&q=80"
+                                 onerror="this.src='https://placehold.co/700x550/F2ECE1/1E1B18?text=Aesthetic+Dental+Lounge'"
+                                 alt="Interior Klinik Gigi Estetika Modern"
+                                 class="w-full h-[360px] sm:h-[440px] object-cover transition-transform duration-700 group-hover:scale-[1.03]">
+                        </div>
+
+                        <!-- Floating Badge -->
+                        <div class="animate-floaty mt-4 sm:mt-0 sm:absolute sm:-bottom-6 sm:-left-6 bg-white p-4 sm:p-5 rounded-2xl shadow-xl border border-stone-100 flex items-center gap-4 max-w-xs">
+                            <div class="w-12 h-12 rounded-full bg-sand text-gold-600 flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-couch"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-wider text-gold-600">Pain-Free Guarantee</p>
+                                <p class="text-sm font-semibold text-espresso mt-0.5">Ruang perawatan privat &amp; ramah anak</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SIGNATURE TREATMENTS ===== -->
+    <section id="treatment" class="py-16 bg-white border-y border-stone-200/70">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="reveal flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">Our Signature Care</span>
+                    <h2 class="font-serif font-bold text-3xl sm:text-4xl text-espresso mt-1">Perawatan Unggulan Klinik</h2>
+                </div>
+                <p class="text-sm text-stone-500 max-w-md">Menggabungkan ketelitian medis dan sentuhan estetika untuk memberikan hasil yang natural dan tahan lama.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Item 1 -->
+                <div class="reveal h-full">
+                    <div class="group h-full p-6 rounded-3xl bg-cream border border-stone-200/80 hover:border-gold-500 hover:shadow-xl hover:shadow-gold-600/5 hover:-translate-y-1.5 transition-all duration-400 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-sand text-gold-600 mb-4">Most Popular</span>
+                            <h3 class="font-serif font-bold text-2xl text-espresso">Airflow Spa Scaling</h3>
+                            <p class="text-xs text-stone-600 mt-2.5 leading-relaxed">Pembersihan karang gigi &amp; noda kopi dengan semprotan air hangat lembut, jauh lebih nyaman dari scaling biasa.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-stone-200/80 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase text-stone-400 block">Promo Bulan Ini</span>
+                                <span class="font-bold text-espresso text-base">Rp 399.000</span>
+                            </div>
+                            <button type="button" onclick="pilihTreatment('Airflow Spa Scaling (Rp 399rb)')" aria-label="Pilih Airflow Spa Scaling"
+                                    class="w-9 h-9 rounded-full bg-espresso text-cream group-hover:bg-gold-600 active:scale-95 transition-all duration-300 flex items-center justify-center">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="reveal h-full" style="transition-delay:70ms">
+                    <div class="group h-full p-6 rounded-3xl bg-cream border border-stone-200/80 hover:border-gold-500 hover:shadow-xl hover:shadow-gold-600/5 hover:-translate-y-1.5 transition-all duration-400 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-sand text-stone-600 mb-4">Aesthetic</span>
+                            <h3 class="font-serif font-bold text-2xl text-espresso">Natural Porcelain Veneer</h3>
+                            <p class="text-xs text-stone-600 mt-2.5 leading-relaxed">Memperbaiki bentuk, warna, dan proporsi gigi depan secara presisi agar tampak cerah alami tanpa terlihat tebal.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-stone-200/80 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase text-stone-400 block">Per Gigi Mulai</span>
+                                <span class="font-bold text-espresso text-base">Rp 2.500.000</span>
+                            </div>
+                            <button type="button" onclick="pilihTreatment('Konsultasi Porcelain Veneer')" aria-label="Pilih Porcelain Veneer"
+                                    class="w-9 h-9 rounded-full bg-espresso text-cream group-hover:bg-gold-600 active:scale-95 transition-all duration-300 flex items-center justify-center">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="reveal h-full" style="transition-delay:140ms">
+                    <div class="group h-full p-6 rounded-3xl bg-cream border border-stone-200/80 hover:border-gold-500 hover:shadow-xl hover:shadow-gold-600/5 hover:-translate-y-1.5 transition-all duration-400 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-sand text-stone-600 mb-4">Orthodontics</span>
+                            <h3 class="font-serif font-bold text-2xl text-espresso">Self-Ligating &amp; Clear Aligner</h3>
+                            <p class="text-xs text-stone-600 mt-2.5 leading-relaxed">Merapikan gigi lebih cepat dan minim gesekan dengan teknologi behel tanpa karet maupun aligner transparan.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-stone-200/80 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase text-stone-400 block">DP Pemasangan</span>
+                                <span class="font-bold text-espresso text-base">Rp 1.900.000</span>
+                            </div>
+                            <button type="button" onclick="pilihTreatment('Konsultasi Behel / Clear Aligner')" aria-label="Pilih Behel / Aligner"
+                                    class="w-9 h-9 rounded-full bg-espresso text-cream group-hover:bg-gold-600 active:scale-95 transition-all duration-300 flex items-center justify-center">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="reveal h-full" style="transition-delay:210ms">
+                    <div class="group h-full p-6 rounded-3xl bg-cream border border-stone-200/80 hover:border-gold-500 hover:shadow-xl hover:shadow-gold-600/5 hover:-translate-y-1.5 transition-all duration-400 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-sand text-stone-600 mb-4">Brightening</span>
+                            <h3 class="font-serif font-bold text-2xl text-espresso">In-Office Laser Bleaching</h3>
+                            <p class="text-xs text-stone-600 mt-2.5 leading-relaxed">Gigi tampak lebih cerah hingga 5 tingkat dalam 60 menit dengan formula desensitizing agar gigi tidak ngilu.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-stone-200/80 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] uppercase text-stone-400 block">Paket Lengkap</span>
+                                <span class="font-bold text-espresso text-base">Rp 1.750.000</span>
+                            </div>
+                            <button type="button" onclick="pilihTreatment('In-Office Laser Bleaching (Rp 1,75jt)')" aria-label="Pilih Laser Bleaching"
+                                    class="w-9 h-9 rounded-full bg-espresso text-cream group-hover:bg-gold-600 active:scale-95 transition-all duration-300 flex items-center justify-center">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BEFORE / AFTER ===== -->
+    <section id="transformasi" class="py-16 bg-cream">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-12 gap-10 items-center">
+                <div class="reveal lg:col-span-5 space-y-4">
+                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">Real Smile Transformation</span>
+                    <h2 class="font-serif font-bold text-3xl sm:text-4xl text-espresso">Geser untuk Melihat Perubahan Nyata</h2>
+                    <p class="text-sm sm:text-base text-stone-600 leading-relaxed">
+                        Setiap senyum memiliki karakter unik. Geser garis pemisah di samping untuk melihat perbandingan hasil perawatan pembersihan noda &amp; pencerahan warna gigi pasien kami dalam 1 kali kunjungan.
+                    </p>
+                    <ul class="space-y-2.5 pt-2 text-sm text-stone-700">
+                        <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-600"></i><span>Tanpa mengikis lapisan enamel alami gigi</span></li>
+                        <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-600"></i><span>Hasil langsung terlihat setelah sesi selesai</span></li>
+                        <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-600"></i><span>Konsultasi &amp; simulasi digital sebelum tindakan</span></li>
+                    </ul>
+                </div>
+
+                <!-- Slider Card -->
+                <div class="reveal lg:col-span-7">
+                    <div class="ba-container rounded-3xl h-72 sm:h-96 shadow-xl border-4 border-white" id="ba-slider">
+                        <!-- AFTER IMAGE (Base) -->
+                        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=900&q=85"
+                             onerror="this.src='https://placehold.co/800x450/FAF7F2/1E1B18?text=AFTER:+Senyum+Cerah+Alami'"
+                             alt="Sesudah Perawatan Gigi"
+                             class="w-full h-full object-cover">
+                        <span class="absolute top-4 right-4 bg-espresso/85 text-cream text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">AFTER</span>
+
+                        <!-- BEFORE IMAGE (Clipped Overlay) -->
+                        <div class="ba-before" id="ba-before-wrap">
+                            <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=900&q=85"
+                                 onerror="this.src='https://placehold.co/800x450/D6CFC2/1E1B18?text=BEFORE:+Kondisi+Awal'"
+                                 alt="Sebelum Perawatan Gigi"
+                                 style="filter: sepia(0.38) brightness(0.86) contrast(1.05);"
+                                 class="w-full h-full object-cover" id="ba-before-img">
+                            <span class="absolute top-4 left-4 bg-white/90 text-espresso text-xs font-bold px-3 py-1 rounded-full shadow-sm">BEFORE</span>
+                        </div>
+
+                        <!-- Drag Handle -->
+                        <div class="ba-handle" id="ba-handle">
+                            <div class="ba-circle">
+                                <i class="fa-solid fa-arrows-left-right text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs text-stone-500 mt-3"><i class="fa-solid fa-hand-pointer mr-1 text-gold-600"></i> Geser tombol tengah ke kiri atau kanan untuk membandingkan</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GALERI KLINIK ===== -->
+    <section id="galeri" class="py-16 bg-white border-y border-stone-200/70">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="reveal text-center max-w-2xl mx-auto mb-12">
+                <div class="ornament mb-3"><i class="fa-solid fa-diamond text-[10px]"></i></div>
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">Inside Our Studio</span>
+                <h2 class="font-serif font-bold text-3xl sm:text-4xl text-espresso mt-1">Suasana Klinik yang Nyaman</h2>
+                <p class="text-sm sm:text-base text-stone-500 mt-2">Desain interior hangat, ruang tunggu privat, dan peralatan medis modern yang steril.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                <div class="reveal gallery-item relative overflow-hidden rounded-2xl group h-52 sm:h-64 md:col-span-2 md:row-span-2">
+                    <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=900&q=80"
+                         onerror="this.src='https://placehold.co/800x600/F2ECE1/1E1B18?text=Lounge+Area'"
+                         alt="Ruang Tunggu Nyaman" class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-espresso/80 via-espresso/10 to-transparent flex items-end p-5">
+                        <div class="text-cream">
+                            <p class="text-xs uppercase tracking-widest text-gold-400 font-bold">Lounge Area</p>
+                            <p class="font-serif text-xl font-bold">Ruang Tunggu Privat</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal gallery-item relative overflow-hidden rounded-2xl group h-52 sm:h-64" style="transition-delay:60ms">
+                    <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=600&q=80"
+                         onerror="this.src='https://placehold.co/400x400/F2ECE1/1E1B18?text=Treatment+Room'"
+                         alt="Ruang Perawatan" class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-espresso/80 via-espresso/10 to-transparent flex items-end p-4">
+                        <div class="text-cream">
+                            <p class="text-xs uppercase tracking-widest text-gold-400 font-bold">Treatment</p>
+                            <p class="font-serif text-lg font-bold">Ruang Perawatan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal gallery-item relative overflow-hidden rounded-2xl group h-52 sm:h-64" style="transition-delay:120ms">
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=600&q=80"
+                         onerror="this.src='https://placehold.co/400x400/F2ECE1/1E1B18?text=Equipment'"
+                         alt="Peralatan Medis Modern" class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-espresso/80 via-espresso/10 to-transparent flex items-end p-4">
+                        <div class="text-cream">
+                            <p class="text-xs uppercase tracking-widest text-gold-400 font-bold">Equipment</p>
+                            <p class="font-serif text-lg font-bold">Alat Steril Modern</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal gallery-item relative overflow-hidden rounded-2xl group h-52 sm:h-64 md:col-span-2" style="transition-delay:180ms">
+                    <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=900&q=80"
+                         onerror="this.src='https://placehold.co/800x400/F2ECE1/1E1B18?text=Consultation'"
+                         alt="Area Konsultasi" class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-espresso/80 via-espresso/10 to-transparent flex items-end p-4">
+                        <div class="text-cream">
+                            <p class="text-xs uppercase tracking-widest text-gold-400 font-bold">Consultation</p>
+                            <p class="font-serif text-lg font-bold">Konsultasi Personal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONI ===== -->
+    <section class="py-16 bg-cream">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="reveal text-center max-w-2xl mx-auto mb-12">
+                <div class="ornament mb-3"><i class="fa-solid fa-diamond text-[10px]"></i></div>
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">Patient Stories</span>
+                <h2 class="font-serif font-bold text-3xl sm:text-4xl text-espresso mt-1">Apa Kata Pasien Kami</h2>
+                <p class="text-sm sm:text-base text-stone-500 mt-2">Cerita nyata dari mereka yang sudah merasakan pengalaman perawatan di Lumière.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="reveal h-full">
+                    <figure class="testimonial-card h-full relative p-7 rounded-3xl bg-white border border-stone-200/80 shadow-sm">
+                        <i class="fa-solid fa-quote-left absolute top-6 right-6 text-3xl text-gold-400/40"></i>
+                        <div class="flex gap-1 text-gold-500 text-xs mb-4">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <blockquote class="text-sm text-stone-600 leading-relaxed italic">"Suasananya benar-benar seperti lounge, bukan klinik gigi. Scaling-nya nyaman, dokternya detail menjelaskan. Nggak sabar balik lagi untuk veneer!"</blockquote>
+                        <figcaption class="mt-6 pt-5 border-t border-stone-200/70 flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-full bg-espresso text-gold-400 flex items-center justify-center font-serif font-bold text-lg shrink-0">C</div>
+                            <div>
+                                <p class="text-sm font-bold text-espresso">Clara Wijaya</p>
+                                <p class="text-xs text-stone-500">Pasien Airflow Scaling</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <div class="reveal h-full" style="transition-delay:90ms">
+                    <figure class="testimonial-card h-full relative p-7 rounded-3xl bg-white border border-stone-200/80 shadow-sm">
+                        <i class="fa-solid fa-quote-left absolute top-6 right-6 text-3xl text-gold-400/40"></i>
+                        <div class="flex gap-1 text-gold-500 text-xs mb-4">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <blockquote class="text-sm text-stone-600 leading-relaxed italic">"Pasang behel self-ligating di sini, dari awal konsultasi sudah dijelaskan estimasi lengkap tanpa biaya kejutan. Hasil rapi, kontrol selalu on-time."</blockquote>
+                        <figcaption class="mt-6 pt-5 border-t border-stone-200/70 flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-full bg-espresso text-gold-400 flex items-center justify-center font-serif font-bold text-lg shrink-0">A</div>
+                            <div>
+                                <p class="text-sm font-bold text-espresso">Andri Pratama</p>
+                                <p class="text-xs text-stone-500">Pasien Behel</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <div class="reveal h-full" style="transition-delay:180ms">
+                    <figure class="testimonial-card h-full relative p-7 rounded-3xl bg-white border border-stone-200/80 shadow-sm">
+                        <i class="fa-solid fa-quote-left absolute top-6 right-6 text-3xl text-gold-400/40"></i>
+                        <div class="flex gap-1 text-gold-500 text-xs mb-4">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <blockquote class="text-sm text-stone-600 leading-relaxed italic">"Bawa anak saya yang takut dokter gigi. Tim-nya sabar banget, dibujuk sampai mau dirawat. Sekarang malah minta kontrol sendiri. Recommended!"</blockquote>
+                        <figcaption class="mt-6 pt-5 border-t border-stone-200/70 flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-full bg-espresso text-gold-400 flex items-center justify-center font-serif font-bold text-lg shrink-0">D</div>
+                            <div>
+                                <p class="text-sm font-bold text-espresso">Dewi Lestari</p>
+                                <p class="text-xs text-stone-500">Orang Tua Pasien Anak</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SIMULASI BIAYA & RESERVASI ===== -->
+    <section id="estimasi" class="py-16 bg-sand/60 border-t border-stone-200/80">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+
+                <!-- Kalkulator Estimasi -->
+                <div class="reveal lg:col-span-6 bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-stone-200/80">
+                    <span class="text-xs font-bold uppercase tracking-[0.18em] text-gold-600">Transparent Pricing</span>
+                    <h2 class="font-serif font-bold text-2xl sm:text-3xl text-espresso mt-1">Simulasi Biaya Perawatan</h2>
+                    <p class="text-sm text-stone-500 mt-1 mb-6">Pilih tindakan yang Anda inginkan untuk melihat estimasi biaya sebelum datang.</p>
+
+                    <div class="space-y-3">
+                        <label class="flex items-center justify-between p-3.5 rounded-2xl border border-stone-200 hover:border-gold-500 cursor-pointer transition-colors duration-200 has-[:checked]:bg-cream has-[:checked]:border-gold-500">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" value="399000" data-name="Airflow Spa Scaling" class="calc-item w-4 h-4 accent-amber-700">
+                                <div>
+                                    <span class="text-sm font-semibold text-espresso block">Airflow Spa Scaling</span>
+                                    <span class="text-xs text-stone-400">Rahang atas &amp; bawah + poles</span>
+                                </div>
+                            </div>
+                            <span class="text-sm font-bold text-espresso whitespace-nowrap">Rp 399rb</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-3.5 rounded-2xl border border-stone-200 hover:border-gold-500 cursor-pointer transition-colors duration-200 has-[:checked]:bg-cream has-[:checked]:border-gold-500">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" value="350000" data-name="Tambal Estetik Laser (1 Gigi)" class="calc-item w-4 h-4 accent-amber-700">
+                                <div>
+                                    <span class="text-sm font-semibold text-espresso block">Tambal Estetik Laser (1 Gigi)</span>
+                                    <span class="text-xs text-stone-400">Komposit natural sewarna gigi</span>
+                                </div>
+                            </div>
+                            <span class="text-sm font-bold text-espresso whitespace-nowrap">Rp 350rb</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-3.5 rounded-2xl border border-stone-200 hover:border-gold-500 cursor-pointer transition-colors duration-200 has-[:checked]:bg-cream has-[:checked]:border-gold-500">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" value="1750000" data-name="In-Office Laser Bleaching" class="calc-item w-4 h-4 accent-amber-700">
+                                <div>
+                                    <span class="text-sm font-semibold text-espresso block">In-Office Laser Bleaching</span>
+                                    <span class="text-xs text-stone-400">1 sesi pencerahan maksimal</span>
+                                </div>
+                            </div>
+                            <span class="text-sm font-bold text-espresso whitespace-nowrap">Rp 1,75jt</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-3.5 rounded-2xl border border-stone-200 hover:border-gold-500 cursor-pointer transition-colors duration-200 has-[:checked]:bg-cream has-[:checked]:border-gold-500">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" value="1900000" data-name="DP Behel Self-Ligating" class="calc-item w-4 h-4 accent-amber-700">
+                                <div>
+                                    <span class="text-sm font-semibold text-espresso block">DP Behel Self-Ligating</span>
+                                    <span class="text-xs text-stone-400">Termasuk cetak &amp; rontgen awal</span>
+                                </div>
+                            </div>
+                            <span class="text-sm font-bold text-espresso whitespace-nowrap">Rp 1,9jt</span>
+                        </label>
+                    </div>
+
+                    <div class="mt-6 p-5 rounded-2xl bg-espresso text-cream flex items-center justify-between gap-3 overflow-hidden relative">
+                        <div class="pointer-events-none absolute -top-10 -right-10 w-32 h-32 bg-gold-500/20 rounded-full blur-2xl"></div>
+                        <div class="relative">
+                            <span class="text-xs text-stone-400 block">Estimasi Total:</span>
+                            <span id="total-estimasi" class="inline-block font-serif font-bold text-2xl sm:text-3xl text-gold-400">Rp 0</span>
+                        </div>
+                        <button type="button" onclick="kirimEstimasiKeForm()" class="relative bg-gold-500 hover:bg-gold-400 active:scale-95 text-espresso font-bold text-xs sm:text-sm px-4 py-2.5 rounded-full transition-all duration-200 shrink-0">
+                            Lanjut Booking →
+                        </button>
+                    </div>
+                    <p class="text-[11px] text-stone-400 mt-2.5">*Biaya final menyesuaikan hasil pemeriksaan kondisi gigi oleh dokter.</p>
+                </div>
+
+                <!-- Form Reservasi VIP -->
+                <div id="reservasi" class="reveal lg:col-span-6 bg-white p-6 sm:p-8 rounded-3xl shadow-md border border-stone-200/80" style="transition-delay:90ms">
+                    <span class="text-xs font-bold uppercase tracking-[0.18em] text-gold-600">Private Reservation</span>
+                    <h2 class="font-serif font-bold text-2xl sm:text-3xl text-espresso mt-1">Reservasi Jadwal Klinik</h2>
+                    <p class="text-sm text-stone-500 mt-1 mb-6">Konfirmasi slot dokter secara instan melalui WhatsApp Concierge kami.</p>
+
+                    <form id="luxury-booking-form" class="space-y-4" novalidate>
+                        <div>
+                            <label for="nama" class="block text-xs font-bold uppercase text-stone-600 mb-1.5">Nama Lengkap *</label>
+                            <input type="text" id="nama" required placeholder="Contoh: Clara Wijaya"
+                                   class="w-full px-4 py-3 rounded-xl bg-cream border border-stone-200 text-sm transition-all duration-200 focus:outline-none focus:border-gold-500 focus:ring-4 focus:ring-gold-500/15 focus:bg-white">
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="tanggal" class="block text-xs font-bold uppercase text-stone-600 mb-1.5">Tanggal Kunjungan *</label>
+                                <input type="date" id="tanggal" required
+                                       class="w-full px-4 py-3 rounded-xl bg-cream border border-stone-200 text-sm transition-all duration-200 focus:outline-none focus:border-gold-500 focus:ring-4 focus:ring-gold-500/15 focus:bg-white">
+                            </div>
+                            <div>
+                                <label for="sesi" class="block text-xs font-bold uppercase text-stone-600 mb-1.5">Waktu Kunjungan *</label>
+                                <select id="sesi" class="w-full px-4 py-3 rounded-xl bg-cream border border-stone-200 text-sm transition-all duration-200 focus:outline-none focus:border-gold-500 focus:ring-4 focus:ring-gold-500/15 focus:bg-white">
+                                    <option value="Pagi (10.00 - 13.00 WIB)">Pagi (10.00 - 13.00 WIB)</option>
+                                    <option value="Siang (13.30 - 16.30 WIB)">Siang (13.30 - 16.30 WIB)</option>
+                                    <option value="Sore / Malam (17.00 - 20.30 WIB)">Sore / Malam (17.00 - 20.30 WIB)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="treatment-input" class="block text-xs font-bold uppercase text-stone-600 mb-1.5">Perawatan / Keluhan *</label>
+                            <input type="text" id="treatment-input" required placeholder="Contoh: Airflow Spa Scaling / Konsultasi Veneer"
+                                   class="w-full px-4 py-3 rounded-xl bg-cream border border-stone-200 text-sm transition-all duration-200 focus:outline-none focus:border-gold-500 focus:ring-4 focus:ring-gold-500/15 focus:bg-white">
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="btn-gold-shine w-full bg-espresso hover:bg-stone-800 active:scale-[.99] text-cream font-semibold py-4 px-6 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center gap-2.5 text-sm sm:text-base mt-2">
+                            <i class="fa-brands fa-whatsapp text-gold-400 text-lg"></i>
+                            <span>Konfirmasi Jadwal via WhatsApp</span>
+                        </button>
+                        <p class="text-[11px] text-center text-stone-400">Data Anda hanya digunakan untuk konfirmasi jadwal kunjungan.</p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="py-16 bg-white border-t border-stone-200/70">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+            <div class="reveal text-center max-w-2xl mx-auto mb-10">
+                <div class="ornament mb-3"><i class="fa-solid fa-diamond text-[10px]"></i></div>
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600">Common Questions</span>
+                <h2 class="font-serif font-bold text-3xl sm:text-4xl text-espresso mt-1">Masih Ragu Sebelum Berkunjung?</h2>
+                <p class="text-sm sm:text-base text-stone-500 mt-2">Beberapa hal yang paling sering ditanyakan pasien baru.</p>
+            </div>
+
+            <div class="reveal rounded-2xl border border-stone-200/80 bg-cream px-5 sm:px-6">
+                <div class="faq-item border-b border-stone-200/80">
+                    <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 py-4 text-left" aria-expanded="false">
+                        <span class="font-semibold text-espresso text-sm sm:text-base">Apakah perawatan di sini sakit?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron text-gold-600 text-xs shrink-0"></i>
+                    </button>
+                    <div class="faq-panel">
+                        <div class="faq-inner">
+                            <p class="text-sm text-stone-600 leading-relaxed pb-4 pr-6">Kami menggunakan anestesi lokal modern dan teknik minim rasa sakit. Sebagian besar pasien hanya merasakan tekanan ringan, bukan nyeri. Dokter akan menjelaskan setiap langkah sebelum tindakan dimulai.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-stone-200/80">
+                    <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 py-4 text-left" aria-expanded="false">
+                        <span class="font-semibold text-espresso text-sm sm:text-base">Bagaimana cara reservasi yang benar?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron text-gold-600 text-xs shrink-0"></i>
+                    </button>
+                    <div class="faq-panel">
+                        <div class="faq-inner">
+                            <p class="text-sm text-stone-600 leading-relaxed pb-4 pr-6">Cukup isi formulir reservasi di halaman ini, lalu kirim ke WhatsApp concierge kami. Admin akan mengonfirmasi ketersediaan slot jam dokter dalam beberapa menit pada jam operasional.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-stone-200/80">
+                    <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 py-4 text-left" aria-expanded="false">
+                        <span class="font-semibold text-espresso text-sm sm:text-base">Apakah harga sudah final?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron text-gold-600 text-xs shrink-0"></i>
+                    </button>
+                    <div class="faq-panel">
+                        <div class="faq-inner">
+                            <p class="text-sm text-stone-600 leading-relaxed pb-4 pr-6">Harga yang tampil adalah estimasi awal. Biaya final ditentukan setelah pemeriksaan langsung oleh dokter, dan Anda akan diberi tahu rinciannya sebelum tindakan dilakukan — tanpa biaya tersembunyi.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button type="button" class="faq-trigger w-full flex items-center justify-between gap-4 py-4 text-left" aria-expanded="false">
+                        <span class="font-semibold text-espresso text-sm sm:text-base">Apakah bisa bayar dengan cicilan?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron text-gold-600 text-xs shrink-0"></i>
+                    </button>
+                    <div class="faq-panel">
+                        <div class="faq-inner">
+                            <p class="text-sm text-stone-600 leading-relaxed pb-4 pr-6">Ya. Untuk perawatan behel dan beberapa tindakan estetika, tersedia skema pembayaran bertahap 0% hingga 12 bulan. Silakan tanyakan detailnya ke admin atau dokter saat konsultasi awal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA PENUTUP ===== -->
+    <section class="py-16 bg-cream">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="reveal relative overflow-hidden rounded-[2rem] bg-espresso p-8 sm:p-12 text-cream shadow-xl">
+                <div class="pointer-events-none absolute -top-16 -right-10 w-64 h-64 bg-gold-500/15 rounded-full blur-2xl animate-floaty"></div>
+                <div class="pointer-events-none absolute -bottom-20 -left-10 w-64 h-64 bg-gold-400/10 rounded-full blur-2xl animate-floaty" style="animation-delay:-3.5s"></div>
+
+                <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
+                    <div>
+                        <h2 class="font-serif font-bold text-3xl sm:text-4xl">Mulai Perjalanan Senyum Anda Hari Ini.</h2>
+                        <p class="text-stone-300 text-sm sm:text-base mt-2 max-w-xl">Konsultasi awal gratis, simulasi digital, dan jadwal VIP tanpa antre lama.</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3 shrink-0 w-full sm:w-auto">
+                        <a href="#reservasi" class="btn-gold-shine bg-gold-500 hover:bg-gold-400 text-espresso font-bold px-6 py-3.5 rounded-full transition-all duration-300 hover:-translate-y-0.5 text-center flex items-center justify-center gap-2">
+                            <i class="fa-regular fa-calendar-check"></i> Book Appointment
+                        </a>
+                        <a href="https://wa.me/628998702799" target="_blank" rel="noopener" class="bg-white/10 hover:bg-white/20 border border-white/20 font-bold px-6 py-3.5 rounded-full transition-all duration-300 hover:-translate-y-0.5 text-center flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-gold-400 text-lg"></i> Chat Concierge
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="lokasi" class="bg-espresso text-stone-300 pt-14 pb-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="grid md:grid-cols-3 gap-8 pb-10 border-b border-stone-800">
+                <div class="reveal">
+                    <span class="font-serif font-bold text-2xl text-cream block mb-3">Lumière<span class="text-gold-400 italic">Dental</span></span>
+                    <p class="text-sm text-stone-400 leading-relaxed">
+                        Klinik gigi estetika dan keluarga dengan standar sterilisasi internasional dan pelayanan personal di Cikarang.
+                    </p>
+                </div>
+                <div class="reveal" style="transition-delay:80ms">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-gold-400 mb-3">Alamat &amp; Jam Praktik</h4>
+                    <p class="text-sm text-stone-400 flex items-start gap-2">
+                        <i class="fa-solid fa-location-dot text-gold-500 mt-1"></i>
+                        <span>Ruko Boulevard Jababeka / Cikarang, Kab. Bekasi, Jawa Barat</span>
+                    </p>
+                    <p class="text-sm text-stone-400 flex items-center gap-2 mt-2">
+                        <i class="fa-regular fa-clock text-gold-500"></i>
+                        <span>Setiap Hari: 10.00 – 21.00 WIB</span>
+                    </p>
+                </div>
+                <div class="reveal" style="transition-delay:160ms">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-gold-400 mb-3">WhatsApp Concierge</h4>
+                    <a href="https://wa.me/628998702799" target="_blank" rel="noopener" class="btn-gold-shine inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-espresso font-bold text-sm px-5 py-2.5 rounded-full transition-colors duration-300">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>Hubungi Admin Klinik</span>
+                    </a>
+                </div>
+            </div>
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500 text-center sm:text-left">
+                <p>© 2026 Lumière Dental Boutique Cikarang.</p>
+                <p>Website Demo oleh <a href="https://wa.me/628998702799" target="_blank" rel="noopener" class="text-gold-400 hover:text-gold-300 hover:underline font-semibold transition-colors">Terlahir Manusia Web Development</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Spacer untuk mobile CTA bar -->
+    <div class="h-20 md:hidden" aria-hidden="true"></div>
+
+    <!-- Mobile CTA Bar -->
+    <div class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-cream/95 backdrop-blur-md border-t border-stone-200 px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] flex gap-3 shadow-[0_-6px_20px_-8px_rgba(15,23,42,.15)]">
+        <a href="#reservasi" class="flex-1 bg-espresso active:bg-stone-800 text-cream text-center font-semibold text-sm py-3 rounded-full flex items-center justify-center gap-2 transition-colors">
+            <i class="fa-regular fa-calendar-check text-gold-400"></i> Book
+        </a>
+        <a href="https://wa.me/628998702799" target="_blank" rel="noopener" class="flex-1 bg-gold-500 active:bg-gold-400 text-espresso text-center font-semibold text-sm py-3 rounded-full flex items-center justify-center gap-2 transition-colors">
+            <i class="fa-brands fa-whatsapp text-base"></i> WhatsApp
+        </a>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-msg" role="status" aria-live="polite"
+         class="fixed bottom-24 md:bottom-6 right-4 sm:right-6 z-50 translate-y-24 opacity-0 bg-espresso text-cream px-5 py-3.5 rounded-2xl shadow-2xl border border-gold-500/40 flex items-center gap-3 text-sm max-w-[calc(100vw-2rem)] sm:max-w-xs">
+        <i class="fa-solid fa-circle-check text-gold-400 shrink-0"></i>
+        <span id="toast-text">Tersimpan!</span>
+    </div>
+
+    <script>
+        /* ============================================================
+           UTIL
+        ============================================================ */
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function formatRupiah(angka) {
+            return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        /* ============================================================
+           TOAST
+        ============================================================ */
+        let toastTimer = null;
+        function showToast(msg) {
+            const toast = document.getElementById('toast-msg');
+            document.getElementById('toast-text').textContent = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.add('translate-y-24', 'opacity-0'), 3200);
+        }
+
+        /* ============================================================
+           SCROLL PROGRESS + HEADER SHADOW
+        ============================================================ */
+        const progressBar = document.getElementById('scroll-progress');
+        const siteHeader = document.getElementById('site-header');
+
+        function onScroll() {
+            const doc = document.documentElement;
+            const max = doc.scrollHeight - doc.clientHeight;
+            const pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+            progressBar.style.width = pct + '%';
+            if (window.scrollY > 8) {
+                siteHeader.classList.add('shadow-md', 'shadow-stone-900/5');
+            } else {
+                siteHeader.classList.remove('shadow-md', 'shadow-stone-900/5');
+            }
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+
+        /* ============================================================
+           SCROLL REVEAL
+        ============================================================ */
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        /* ============================================================
+           COUNTER ANGKA
+        ============================================================ */
+        function animateCounter(el) {
+            const target = parseFloat(el.dataset.counter);
+            const decimals = parseInt(el.dataset.decimals || '0', 10);
+            const duration = 1500;
+            const start = performance.now();
+            const fmt = (v) => decimals > 0
+                ? v.toFixed(decimals).replace('.', ',')
+                : Math.round(v).toLocaleString('id-ID');
+
+            if (prefersReduced) { el.textContent = fmt(target); return; }
+
+            function step(now) {
+                const p = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = fmt(target * eased);
+                if (p < 1) requestAnimationFrame(step);
+                else el.textContent = fmt(target);
+            }
+            requestAnimationFrame(step);
+        }
+
+        const counterObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('[data-counter]').forEach(el => counterObserver.observe(el));
+
+        /* ============================================================
+           MOBILE MENU
+        ============================================================ */
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = menuBtn.querySelector('i');
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuIcon.className = 'fa-solid fa-bars';
+        }
+
+        menuBtn.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            menuBtn.setAttribute('aria-expanded', String(isOpen));
+            menuIcon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
+
+        /* ============================================================
+           BEFORE / AFTER SLIDER
+        ============================================================ */
+        const slider = document.getElementById('ba-slider');
+        const beforeWrap = document.getElementById('ba-before-wrap');
+        const beforeImg = document.getElementById('ba-before-img');
+        const handle = document.getElementById('ba-handle');
+        let isDragging = false;
+        let hasAutoPlayed = false;
+
+        function syncBeforeWidth() {
+            if (slider && beforeImg) {
+                beforeImg.style.width = slider.offsetWidth + 'px';
+            }
+        }
+        window.addEventListener('resize', syncBeforeWidth);
+        syncBeforeWidth();
+
+        function setSliderPos(pct) {
+            beforeWrap.style.width = pct + '%';
+            handle.style.left = pct + '%';
+        }
+
+        function moveSlider(clientX) {
+            const rect = slider.getBoundingClientRect();
+            let pos = ((clientX - rect.left) / rect.width) * 100;
+            pos = Math.max(5, Math.min(95, pos));
+            setSliderPos(pos);
+        }
+
+        // Mouse
+        slider.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            handle.classList.add('active');
+            moveSlider(e.clientX);
+        });
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            handle.classList.remove('active');
+        });
+        window.addEventListener('mousemove', (e) => { if (isDragging) moveSlider(e.clientX); });
+
+        // Touch
+        slider.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            handle.classList.add('active');
+            moveSlider(e.touches[0].clientX);
+        }, { passive: true });
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+            handle.classList.remove('active');
+        });
+        slider.addEventListener('touchmove', (e) => {
+            if (isDragging) moveSlider(e.touches[0].clientX);
+        }, { passive: true });
+
+        // Auto-play hint saat pertama kali masuk viewport
+        const autoPlayObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasAutoPlayed && !prefersReduced) {
+                    hasAutoPlayed = true;
+                    const startPos = 50;
+                    const sequence = [65, 35, 50];
+                    let i = 0;
+
+                    const step = () => {
+                        if (i >= sequence.length) return;
+                        const target = sequence[i];
+                        const from = parseFloat(handle.style.left) || startPos;
+                        const duration = 900;
+                        const t0 = performance.now();
+
+                        const anim = (now) => {
+                            const p = Math.min((now - t0) / duration, 1);
+                            const eased = 1 - Math.pow(1 - p, 3);
+                            setSliderPos(from + (target - from) * eased);
+                            if (p < 1) requestAnimationFrame(anim);
+                            else {
+                                i++;
+                                setTimeout(step, 350);
+                            }
+                        };
+                        requestAnimationFrame(anim);
+                    };
+                    setTimeout(step, 700);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.4 });
+
+        autoPlayObserver.observe(slider);
+
+        /* ============================================================
+           KALKULATOR ESTIMASI
+        ============================================================ */
+        const checkboxes = document.querySelectorAll('.calc-item');
+        const totalEl = document.getElementById('total-estimasi');
+        let ringkasanEstimasi = '';
+        let displayedTotal = 0;
+        let totalRAF = null;
+
+        function animateTotal(to) {
+            if (totalRAF) cancelAnimationFrame(totalRAF);
+
+            const from = displayedTotal;
+            const duration = 450;
+            const t0 = performance.now();
+
+            totalEl.classList.remove('pop');
+            void totalEl.offsetWidth;
+            totalEl.classList.add('pop');
+
+            if (prefersReduced) {
+                displayedTotal = to;
+                totalEl.textContent = formatRupiah(to);
+                return;
+            }
+
+            function step(now) {
+                const p = Math.min((now - t0) / duration, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                const val = Math.round(from + (to - from) * eased);
+                displayedTotal = val;
+                totalEl.textContent = formatRupiah(val);
+                if (p < 1) totalRAF = requestAnimationFrame(step);
+                else {
+                    displayedTotal = to;
+                    totalEl.textContent = formatRupiah(to);
+                }
+            }
+            totalRAF = requestAnimationFrame(step);
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                let total = 0;
+                const items = [];
+                checkboxes.forEach(item => {
+                    if (item.checked) {
+                        total += parseInt(item.value, 10);
+                        items.push(item.dataset.name);
+                    }
+                });
+                animateTotal(total);
+                ringkasanEstimasi = items.length
+                    ? `${items.join(', ')} (Estimasi ${formatRupiah(total)})`
+                    : '';
+            });
+        });
+
+        /* ============================================================
+           KALKULATOR -> FORM
+        ============================================================ */
+        function kirimEstimasiKeForm() {
+            if (!ringkasanEstimasi) {
+                showToast('Centang minimal 1 perawatan dulu ya.');
+                return;
+            }
+            const input = document.getElementById('treatment-input');
+            input.value = ringkasanEstimasi;
+            document.getElementById('reservasi').scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth' });
+            showToast('Estimasi dimasukkan ke form reservasi!');
+            setTimeout(() => {
+                input.classList.add('ring-4', 'ring-gold-500/30', 'border-gold-500');
+                setTimeout(() => input.classList.remove('ring-4', 'ring-gold-500/30', 'border-gold-500'), 1400);
+            }, prefersReduced ? 0 : 600);
+        }
+
+        function pilihTreatment(nama) {
+            const input = document.getElementById('treatment-input');
+            input.value = nama;
+            document.getElementById('reservasi').scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth' });
+            showToast(`"${nama}" dipilih!`);
+            setTimeout(() => {
+                input.classList.add('ring-4', 'ring-gold-500/30', 'border-gold-500');
+                setTimeout(() => input.classList.remove('ring-4', 'ring-gold-500/30', 'border-gold-500'), 1400);
+            }, prefersReduced ? 0 : 600);
+        }
+
+        /* ============================================================
+           FORM BOOKING -> WHATSAPP
+        ============================================================ */
+        const bookingForm = document.getElementById('luxury-booking-form');
+
+        function markInvalid(el) {
+            el.classList.add('shake', 'border-rose-400', 'ring-4', 'ring-rose-500/15');
+            setTimeout(() => el.classList.remove('shake'), 520);
+            setTimeout(() => el.classList.remove('border-rose-400', 'ring-4', 'ring-rose-500/15'), 2200);
+            el.focus();
+        }
+
+        bookingForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const namaEl = document.getElementById('nama');
+            const tanggalEl = document.getElementById('tanggal');
+            const sesiEl = document.getElementById('sesi');
+            const treatmentEl = document.getElementById('treatment-input');
+
+            const nama = namaEl.value.trim();
+            const tanggal = tanggalEl.value;
+            const sesi = sesiEl.value;
+            const treatment = treatmentEl.value.trim();
+
+            if (!nama) { markInvalid(namaEl); showToast('Mohon isi nama lengkap.'); return; }
+            if (!tanggal) { markInvalid(tanggalEl); showToast('Mohon pilih tanggal kunjungan.'); return; }
+            if (!treatment) { markInvalid(treatmentEl); showToast('Mohon isi perawatan atau keluhan.'); return; }
+
+            const tglIndo = new Date(tanggal + 'T00:00:00').toLocaleDateString('id-ID', {
+                weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+            });
+
+            const waNumber = '628998702799';
+            const pesan = `Halo Admin Klinik Gigi, saya ingin reservasi jadwal:\n\n` +
+                          `• *Nama:* ${nama}\n` +
+                          `• *Tanggal:* ${tglIndo}\n` +
+                          `• *Sesi:* ${sesi}\n` +
+                          `• *Perawatan:* ${treatment}\n\n` +
+                          `Mohon konfirmasi jadwal dokternya. Terima kasih!`;
+
+            window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(pesan)}`, '_blank', 'noopener');
+            showToast('Membuka WhatsApp…');
+        });
+
+        /* ============================================================
+           FAQ ACCORDION
+        ============================================================ */
+        document.querySelectorAll('.faq-item').forEach(item => {
+            const trigger = item.querySelector('.faq-trigger');
+            trigger.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(other => {
+                    other.classList.remove('open');
+                    other.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+                });
+                if (!isOpen) {
+                    item.classList.add('open');
+                    trigger.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        /* ============================================================
+           DEFAULT DATE + INIT
+        ============================================================ */
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateEl = document.getElementById('tanggal');
+            if (dateEl) {
+                const now = new Date();
+                const yyyy = now.getFullYear();
+                const mm = String(now.getMonth() + 1).padStart(2, '0');
+                const dd = String(now.getDate()).padStart(2, '0');
+                const todayStr = `${yyyy}-${mm}-${dd}`;
+                dateEl.value = todayStr;
+                dateEl.min = todayStr;
+            }
+            totalEl.textContent = formatRupiah(0);
+            onScroll();
+        });
+    </script>
+</body>
+</html>
